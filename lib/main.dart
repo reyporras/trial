@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:trialapp/gallery_page.dart';
 import 'package:trialapp/home_page.dart';
+import 'package:trialapp/profile_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,7 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(primarySwatch: Colors.grey),
+      theme: ThemeData(primarySwatch: Colors.blueGrey),
       home: const RootPage(),
     );
   }
@@ -27,18 +29,20 @@ class RootPage extends StatefulWidget {
 
 class _RootPageState extends State<RootPage> {
   int currentPage = 0;
+  List<Widget> pages = const [HomePage(), ProfilePage(), GalleryPage()];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Onsanamane'),
       ),
-      body: const HomePage(),
+      body: pages[currentPage],
       bottomNavigationBar: NavigationBar(
         destinations: const [
-          NavigationDestination(icon: Icon(Icons.image), label: 'Images'),
+          NavigationDestination(icon: Icon(Icons.home), label: 'Home'),
           NavigationDestination(icon: Icon(Icons.person), label: 'Profile'),
         ],
+        backgroundColor: Colors.grey,
         onDestinationSelected: (int index) {
           setState(
             () {
@@ -48,7 +52,6 @@ class _RootPageState extends State<RootPage> {
         },
         selectedIndex: currentPage,
       ),
-      backgroundColor: const Color.fromARGB(255, 49, 47, 47),
     );
   }
 }
